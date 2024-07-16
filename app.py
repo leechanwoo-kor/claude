@@ -1,7 +1,7 @@
 import streamlit as st
 import requests
 
-st.title("Cube AI Chat (demo)")
+st.header("AI Chat (demo)", divider="orange")
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
