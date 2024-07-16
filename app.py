@@ -7,15 +7,13 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 if "current_model" not in st.session_state:
-    st.session_state.current_model = "gpt2"
+    st.session_state.current_model = "model"
 
 # Model selection
 model = st.selectbox(
     "사용할 모델을 선택하세요:",
     (
-        "gpt2",
-        #  "gpt2-medium",
-        #  "gpt2-large",
+        "model",
         "api",
     ),
     key="model_select",
@@ -48,7 +46,12 @@ if prompt := st.chat_input("메시지를 입력하세요"):
         with st.spinner("AI가 응답을 생성 중입니다..."):
             response = requests.post(
                 "http://localhost:5000/generate",
-                json={"prompt": prompt, "max_length": 100, "model": model},
+                json={
+                    "prompt": prompt,
+                    "max_length": 100,
+                    "model": model,
+                    "messages": st.session_state.messages
+                },
                 # data={"prompt": prompt},
             )
 
